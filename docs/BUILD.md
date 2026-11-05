@@ -1,48 +1,40 @@
-# Build guide
+# Building a bootable Vellum ISO
 
-## 1. Choose and verify the Mint base
+The build script performs a real live-image remaster: it checks the supplied base ISO hash, extracts the image, unpacks its live root filesystem, installs Vellum `.deb` packages inside that filesystem using the base image's configured APT repositories, rebuilds `filesystem.squashfs`, replaces it in the original ISO while asking xorriso to replay the original boot configuration, and writes a SHA-256 sidecar.
 
-Download the Linux Mint Cinnamon x86_64 ISO from the official Linux Mint download pages. Check the release is still supported and verify the downloaded image against the checksum/signature published by Linux Mint. Keep a record of the exact filename, version, official download URL, and SHA-256. Do not use an unofficial mirror or an unverified image as a release base.
+## Important limitations
 
-## 2. Build Vellum packages
+- This repository does **not** contain a generated ISO. The script must be run on a compatible Linux build machine with sufficient free disk space (allow at least 3x the base ISO size).
+- It requires root for temporary bind mounts and chroot, network access inside the chroot for APT, and packages compatible with the exact Mint base.
+- It preserves the base ISO's boot files and installer; it does not independently create an installer or guarantee every firmware/VM combination works.
+- The script does not repartition disks. ISO installation still uses the upstream Mint installer and its normal confirmation dialogs.
+- This is an early development pipeline, not a release process. Boot, live-session, install, and first-boot checks are still required before public distribution.
 
-On a disposable Ubuntu 24.04 / compatible Mint build machine:
+## Host prerequisites
+
+On an Ubuntu 24.04 / compatible Mint x86_64 build host, install the tools from distribution repositories:
 
 ```sh
 sudo apt update
-sudo apt install build-essential debhelper devscripts python3
-./build/scripts/build-packages.sh
+sudo apt install build-essential debhelper devscripts xorriso squashfs-tools coreutils findutils
 ```
 
-The output is written to `dist/`. Inspect it before use:
+Have a verified official Linux Mint Cinnamon x86_64 ISO available and retrieve its expected SHA-256 from the official Mint download verification page. Do not substitute a checksum copied from an untrusted source.
+
+## Build packages and remaster
+
+From the repository root:
 
 ```sh
-dpkg-deb --info dist/*.deb
-dpkg-deb --contents dist/*.deb
+./build/scripts/build-packages.sh
+sudo ./build/scripts/remaster-mint-iso.sh \
+  /path/to/linuxmint-cinnamon.iso OFFICIAL_BASE_SHA256 \
+  /path/to/output/vellum-linux-1.0-amd64.iso \
+  "$PWD/dist"
 ```
 
-The build helper does not use sudo and does not modify the host system.
+The ISO script refuses to overwrite an existing output and aborts if the base checksum differs. It cleans its temporary working directory on exit. Review the script before running it and use a disposable build host; package installation in the chroot uses the network and the base image's configured repositories.
 
-## 3. Customize the ISO
+## After generation
 
-The initial project workflow uses Cubic as an interactive ISO customization environment because the Mint live image includes boot and installer details that should not be reconstructed by a simplistic ISO repack script.
-
-1. Install Cubic from its maintained project instructions on a dedicated build host.
-2. Start a project using the verified official Mint ISO; work on a copy.
-3. In Cubic's chroot, copy the Vellum `.deb` artifacts into the chroot and install only those packages with `apt install ./package.deb`. Review the package plan and ensure no base component is removed or downgraded.
-4. Apply the documented Cinnamon defaults and branding; do not remove Mint installer, live-boot, initramfs, GRUB, or recovery components.
-5. Generate the customized image with Cubic and retain its build log and source manifest.
-
-This is a documented interactive workflow, not a fully automated ISO pipeline. Automation and signing are future work. Never use an ISO from this repository as a release until it has been boot-tested.
-
-## 4. Validate before distribution
-
-- Verify the resulting ISO is readable and record its SHA-256 (`sha256sum vellum*.iso`).
-- Boot in a disposable VM in UEFI mode and, if supported by the base image, legacy BIOS mode.
-- Check live desktop, network, audio, installer launch, installation into a disposable virtual disk, and first boot after installation.
-- Verify package installation/removal and that the original Mint updater and installer still function.
-- Record failures and exact test environment. Do not report unrun checks as passed.
-
-## Scope
-
-These instructions do not create an ISO automatically and do not authorize overwriting physical disks. Use a disposable VM for installation testing. The installer may erase its selected target disk if the operator chooses that option; review the target and warnings carefully.
+The script prints the output hash and writes `vellum-linux-1.0-amd64.iso.sha256`. Verify it and then test the image in a disposable VM before installing on physical hardware. At minimum check UEFI boot, live desktop, network, installer launch, installation to a disposable virtual disk, and installed first boot. Do not call the image tested or release-ready until those checks have actually been performed.

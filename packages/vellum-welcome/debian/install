@@ -1,2 +1,2 @@
-usr/bin/vellum-welcome applications/vellum-welcome/vellum-welcome
-usr/share/applications/vellum-welcome.desktop applications/vellum-welcome/vellum-welcome.desktop
+usr/bin/vellum-welcome usr/bin
+usr/share/applications/vellum-welcome.desktop usr/share/applications

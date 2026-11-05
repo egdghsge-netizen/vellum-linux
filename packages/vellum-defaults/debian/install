@@ -1,2 +1,3 @@
-usr/share/themes/Vellum/README.md
-usr/share/themes/Vellum/gtk-3.0/gtk.css
+usr/share/glib-2.0/schemas/org.vellum.desktop.gschema.xml usr/share/glib-2.0/schemas
+usr/share/themes/Vellum/README.md usr/share/themes/Vellum
+usr/share/themes/Vellum/gtk-3.0/gtk.css usr/share/themes/Vellum/gtk-3.0
