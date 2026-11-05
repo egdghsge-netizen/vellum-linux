@@ -1,0 +1,43 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#101218"/>
+      <stop offset="1" stop-color="#191D27"/>
+    </linearGradient>
+    <linearGradient id="gA" x1="240" y1="160" x2="760" y2="860" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#167BFF"/>
+      <stop offset="0.5" stop-color="#35D9EE"/>
+      <stop offset="1" stop-color="#66E8D1"/>
+    </linearGradient>
+    <linearGradient id="gB" x1="300" y1="180" x2="760" y2="780" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#35D9EE"/>
+      <stop offset="0.55" stop-color="#66E8D1"/>
+      <stop offset="1" stop-color="#167BFF"/>
+    </linearGradient>
+    <linearGradient id="gC" x1="350" y1="290" x2="710" y2="760" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#66E8D1"/>
+      <stop offset="0.5" stop-color="#35D9EE"/>
+      <stop offset="1" stop-color="#167BFF"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="26" stdDeviation="28" flood-color="#000000" flood-opacity="0.38"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" rx="180" fill="url(#bg)"/>
+
+  <g filter="url(#shadow)">
+    <path d="M203 699C266 631 330 576 415 539C513 498 606 497 696 539C735 558 767 582 792 609C760 639 719 669 668 690C589 724 502 742 433 731C354 720 275 697 203 699Z" fill="url(#gA)" opacity="0.95"/>
+
+    <path d="M270 305C350 248 444 211 546 206C617 202 687 219 746 253C719 290 683 322 637 350C577 389 505 410 438 412C364 414 308 389 270 305Z" fill="url(#gB)" opacity="0.9"/>
+
+    <path d="M317 735C372 683 431 649 500 630C577 608 649 611 719 640C672 685 617 730 555 761C510 785 460 798 410 793C369 789 338 771 317 735Z" fill="url(#gC)" opacity="0.9"/>
+
+    <path d="M384 789C440 752 500 729 565 717C620 706 675 711 722 732C697 785 651 827 584 857C520 885 449 892 389 867C370 860 356 850 343 836C355 823 367 808 384 789Z" fill="#F5F7FA" opacity="0.18"/>
+
+    <path d="M362 624C415 632 468 620 516 585C571 545 611 490 640 430C684 331 661 235 607 175C634 184 662 199 689 221C764 287 808 381 805 479C802 594 714 685 588 727C514 756 437 757 362 624Z" fill="#09131A" opacity="0.15"/>
+
+    <path d="M356 619C417 571 476 536 538 521C601 507 664 515 724 546C686 584 647 614 606 641C555 673 499 695 438 694C411 694 381 676 356 619Z" fill="#F5F7FA" opacity="0.12"/>
+  </g>
+</svg>
+
