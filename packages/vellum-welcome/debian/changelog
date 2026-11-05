@@ -1,0 +1,5 @@
+vellum-welcome (0.1.0) unstable; urgency=medium
+
+  * Initial GTK3 welcome application.
+
+ -- Vellum Linux Project <maintainers@example.invalid>  Thu, 05 Nov 2026 00:00:00 +0000

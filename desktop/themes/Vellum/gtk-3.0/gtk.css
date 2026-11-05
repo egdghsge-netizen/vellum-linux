@@ -1,0 +1,50 @@
+/* Vellum GTK3 base palette; widget coverage is intentionally incremental. */
+@define-color vellum_bg #101218;
+@define-color vellum_surface #191D27;
+@define-color vellum_blue #167BFF;
+@define-color vellum_cyan #35D9EE;
+@define-color vellum_aqua #66E8D1;
+@define-color vellum_fg #F5F7FA;
+@define-color vellum_muted #A6B0C0;
+
+* {
+  -GtkWidget-focus-line-width: 1;
+  -GtkWidget-focus-padding: 2;
+}
+
+window, .background {
+  background-color: @vellum_bg;
+  color: @vellum_fg;
+}
+
+headerbar, .titlebar {
+  background-color: @vellum_surface;
+  color: @vellum_fg;
+  border-bottom: 1px solid alpha(@vellum_muted, 0.18);
+}
+
+button {
+  color: @vellum_fg;
+  background-color: @vellum_surface;
+  border: 1px solid alpha(@vellum_muted, 0.24);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+button:hover { border-color: @vellum_cyan; }
+button:checked, button.suggested-action {
+  color: #ffffff;
+  background-color: @vellum_blue;
+}
+
+entry, textview, spinbutton {
+  color: @vellum_fg;
+  background-color: @vellum_surface;
+  border: 1px solid alpha(@vellum_muted, 0.28);
+  border-radius: 6px;
+}
+
+selection, *:selected {
+  color: #ffffff;
+  background-color: @vellum_blue;
+}

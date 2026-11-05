@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Vellum Welcome
+Comment=Get started with Vellum Linux
+Exec=vellum-welcome
+Icon=preferences-desktop-theme
+Terminal=false
+Categories=GTK;Settings;
+StartupNotify=true

@@ -1,0 +1,13 @@
+Source: vellum-defaults
+Section: x11
+Priority: optional
+Maintainer: Vellum Linux Project <maintainers@example.invalid>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: vellum-defaults
+Architecture: all
+Depends: cinnamon, dconf-gsettings-backend | gsettings-backend
+Description: Vellum Linux Cinnamon visual defaults
+ Vellum-branded Cinnamon theme assets and safe first-login defaults.

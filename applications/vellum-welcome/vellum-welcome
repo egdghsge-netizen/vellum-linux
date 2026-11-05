@@ -1,0 +1,67 @@
+#!/usr/bin/python3
+"""Vellum Welcome: unprivileged links to native desktop configuration tools."""
+import subprocess
+import gi
+
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
+
+
+class Welcome(Gtk.Window):
+    def __init__(self):
+        super().__init__(title="Welcome to Vellum")
+        self.set_border_width(24)
+        self.set_default_size(620, 420)
+        self.set_position(Gtk.WindowPosition.CENTER)
+
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=14)
+        self.add(box)
+        title = Gtk.Label()
+        title.set_markup('<span size="xx-large" weight="bold">Vellum Linux</span>')
+        title.set_xalign(0)
+        box.pack_start(title, False, False, 0)
+        tagline = Gtk.Label(label="Built for freedom.")
+        tagline.set_xalign(0)
+        box.pack_start(tagline, False, False, 0)
+        intro = Gtk.Label(label="Configure your desktop with the tools provided by Linux Mint.")
+        intro.set_xalign(0)
+        box.pack_start(intro, False, False, 8)
+
+        for label, command in (
+            ("Appearance", ["cinnamon-settings", "themes"]),
+            ("Keyboard", ["cinnamon-settings", "keyboard"]),
+            ("Network", ["cinnamon-settings", "network"]),
+            ("Sound", ["cinnamon-settings", "sound"]),
+            ("System information", ["cinnamon-settings", "info"]),
+        ):
+            button = Gtk.Button(label=label)
+            button.set_halign(Gtk.Align.START)
+            button.connect("clicked", self.launch, command)
+            box.pack_start(button, False, False, 0)
+
+        note = Gtk.Label(label="Updates and software installation remain managed by Linux Mint.")
+        note.set_xalign(0)
+        note.set_line_wrap(True)
+        box.pack_end(note, False, False, 0)
+        self.connect("destroy", Gtk.main_quit)
+        self.show_all()
+
+    @staticmethod
+    def launch(_button, argv):
+        try:
+            subprocess.Popen(argv, close_fds=True)
+        except FileNotFoundError:
+            dialog = Gtk.MessageDialog(
+                transient_for=None,
+                flags=0,
+                message_type=Gtk.MessageType.ERROR,
+                buttons=Gtk.ButtonsType.CLOSE,
+                text="A Mint settings tool is not available on this system.",
+            )
+            dialog.run()
+            dialog.destroy()
+
+
+if __name__ == "__main__":
+    Welcome()
+    Gtk.main()

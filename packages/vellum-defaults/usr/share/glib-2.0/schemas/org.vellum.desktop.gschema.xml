@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.vellum.desktop" path="/org/vellum/desktop/">
+    <key name="brand-accent" type="s">
+      <default>'#167BFF'</default>
+      <summary>Vellum accent color</summary>
+      <description>The visual identity accent used by Vellum desktop components.</description>
+    </key>
+    <key name="default-variant" type="s">
+      <default>'dark'</default>
+      <summary>Preferred Vellum theme variant</summary>
+      <description>Initial theme preference for a newly created user.</description>
+    </key>
+  </schema>
+</schemalist>
